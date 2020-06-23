@@ -1,373 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" href="styles.css">
-        <title>JS Double Pendulum</title>
-    </head>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>JS Double Pendulum</title>
+</head>
 
-    <body>
+<body>
 
-        <div id="flex-space">
-            <div id="output">
-                <canvas id="myCanvas" width="1000" height="1000"></canvas>
+    <div id="flex-space">
+        <div id="output">
+            <canvas id="myCanvas" width="1000" height="1000"></canvas>
+        </div>
+        <div id="controllers">
+            <h1>JS Double Pendulum</h1>
+            <div id="buttons">
+                <div id="topbuttons">
+                    <button type="button" id="startbtn" onclick="start()">Start</button>
+                    <button type="button" id="stopbtn" onclick="stop()" disabled>Stop</button>
+                </div>
+                <button type="button" id="logbtn" onclick="printlog()">Print state to console</button>
             </div>
-            <div id="controllers">
-                <h1>JS Double Pendulum</h1>
-                <div id="buttons">
-                    <div id="topbuttons">
-                        <button type="button" id="startbtn" onclick="start()">Start</button>
-                        <button type="button" id="stopbtn" onclick="stop()" disabled>Stop</button>
-                    </div>
-                    <button type="button" id="logbtn" onclick="printlog()">Print state to console</button>
+            <div id="sliders">
+                <hr>
+                <h3 class="sectiontitle">Global:</h3>
+                <div class="sliderdiv">
+                    <label for="slidergravity">Gravity:</label>
+                    <input type="range" min="0" max="10" id="slidergravity" class="slider" step="0.1">
+                    <p class="value" id="valuegravity"></p>
                 </div>
-                <div id="sliders">
-                    <hr>
-                    <h3 class="sectiontitle">Global:</h3>
-                    <div class="sliderdiv">
-                        <label for="slidergravity">Gravity:</label>
-                        <input type="range" min="0" max="10" id="slidergravity" class="slider" step="0.1">
-                        <p class="value" id="valuegravity"></p>
-                    </div>
-                    <div class="sliderdiv">
-                        <label for="sliderdamping">Retention:</label>
-                        <input type="range" min="0.95" max="1" id="sliderdamping" class="slider" step="0.000001">
-                        <p class="value" id="valuedamping"></p>
-                    </div>
-                    <hr>
-                    <h3 class="sectiontitle">First Pendulum:</h3>
-                    <div id="slidersone">
-                        <div class="sliderdiv">
-                            <label for="sliderangleone">Angle:</label>
-                            <input type="range" min="-3.14159265358" max="3.14159265359" id="sliderangleone" class="slider" step="0.01">
-                            <p class="value" id="valueangleone"></p>
-                        </div>
-                        <div class="sliderdiv">
-                            <label for="sliderlengthone">Length:</label>
-                            <input type="range" min="5" max="300" id="sliderlengthone" class="slider" step="1">
-                            <p class="value" id="valuelengthone"></p>
-                        </div>
-                        <div class="sliderdiv">
-                            <label for="slidermassone">Mass:</label>
-                            <input type="range" min="1" max="50" id="slidermassone" class="slider" step="1">
-                            <p class="value" id="valuemassone"></p>
-                        </div>
-                    </div>
-                    <hr>
-                    <h3 class="sectiontitle">Second Pendulum:</h3>
-                    <div id="sliderstwo">
-                        <div class="sliderdiv">
-                            <label for="sliderangletwo">Angle:</label>
-                            <input type="range" min="-3.14159265358" max="3.14159265359" id="sliderangletwo" class="slider" step="0.01">
-                            <p class="value" id="valueangletwo"></p>
-                        </div>
-                        <div class="sliderdiv">
-                            <label for="sliderlengthtwo">Length:</label>
-                            <input type="range" min="5" max="300" id="sliderlengthtwo" class="slider" step="1">
-                            <p class="value" id="valuelengthtwo"></p>
-                        </div>
-                        <div class="sliderdiv">
-                            <label for="slidermasstwo">Mass:</label>
-                            <input type="range" min="1" max="50" id="slidermasstwo" class="slider" step="1">
-                            <p class="value" id="valuemasstwo"></p>
-                        </div>
-                    </div>
-                    <hr>
+                <div class="sliderdiv">
+                    <label for="sliderdamping">Retention:</label>
+                    <input type="range" min="0.95" max="1" id="sliderdamping" class="slider" step="0.000001">
+                    <p class="value" id="valuedamping"></p>
                 </div>
+                <hr>
+                <h3 class="sectiontitle">First Pendulum:</h3>
+                <div id="slidersone">
+                    <div class="sliderdiv">
+                        <label for="sliderangleone">Angle:</label>
+                        <input type="range" min="-3.14159265358" max="3.14159265359" id="sliderangleone" class="slider"
+                            step="0.01">
+                        <p class="value" id="valueangleone"></p>
+                    </div>
+                    <div class="sliderdiv">
+                        <label for="sliderlengthone">Length:</label>
+                        <input type="range" min="5" max="300" id="sliderlengthone" class="slider" step="1">
+                        <p class="value" id="valuelengthone"></p>
+                    </div>
+                    <div class="sliderdiv">
+                        <label for="slidermassone">Mass:</label>
+                        <input type="range" min="1" max="50" id="slidermassone" class="slider" step="1">
+                        <p class="value" id="valuemassone"></p>
+                    </div>
+                </div>
+                <hr>
+                <h3 class="sectiontitle">Second Pendulum:</h3>
+                <div id="sliderstwo">
+                    <div class="sliderdiv">
+                        <label for="sliderangletwo">Angle:</label>
+                        <input type="range" min="-3.14159265358" max="3.14159265359" id="sliderangletwo" class="slider"
+                            step="0.01">
+                        <p class="value" id="valueangletwo"></p>
+                    </div>
+                    <div class="sliderdiv">
+                        <label for="sliderlengthtwo">Length:</label>
+                        <input type="range" min="5" max="300" id="sliderlengthtwo" class="slider" step="1">
+                        <p class="value" id="valuelengthtwo"></p>
+                    </div>
+                    <div class="sliderdiv">
+                        <label for="slidermasstwo">Mass:</label>
+                        <input type="range" min="1" max="50" id="slidermasstwo" class="slider" step="1">
+                        <p class="value" id="valuemasstwo"></p>
+                    </div>
+                </div>
+                <hr>
             </div>
         </div>
-
-        <script>
-            function start() {
-                trace = [];
-                document.getElementById("sliders").style.display = "none";
-                document.getElementById("startbtn").disabled = true;
-                document.getElementById("stopbtn").disabled = false;
-                runint = setInterval(run, 20);
-                console.log("Started")
-            }
-
-            function stop() {
-                clearInterval(runint);
-                p1v = 0;
-                p2v = 0;
-                p1a = 0;
-                p2a = 0;
-                slidergravity.value = G;
-                sliderdamping.value = D;
-                sliderangleone.value = (p1theta % Math.PI);
-                sliderangletwo.value = (p2theta % Math.PI);
-                sliderlengthone.value = p1r;
-                sliderlengthtwo.value = p2r;
-                slidermassone.value = p1m;
-                slidermasstwo.value = p2m;
-                valuegravity.innerHTML = slidergravity.value + "g";
-                valuedamping.innerHTML = "x" + sliderdamping.value;
-                valueangleone.innerHTML = Math.round(sliderangleone.value * 100) / 100 + "rad";
-                valueangletwo.innerHTML = Math.round(sliderangletwo.value * 100) / 100 + "rad";
-                valuelengthone.innerHTML = sliderlengthone.value + "m"
-                valuelengthtwo.innerHTML = sliderlengthtwo.value + "m"
-                valuemassone.innerHTML = slidermassone.value + "kg";
-                valuemasstwo.innerHTML = slidermasstwo.value + "kg";
-                document.getElementById("sliders").style.display = "flex";
-                document.getElementById("startbtn").disabled = false;
-                document.getElementById("stopbtn").disabled = true;
-                draw();
-                console.log("Stopped")
-            }
-
-            function printlog() {
-                const values = {};
-                values.angle = {
-                    PendulumOne: p1theta,
-                    PendulumTwo: p2theta
-                };
-                values.length = {
-                    PendulumOne: p1r,
-                    PendulumTwo: p2r
-                };
-                values.mass = {
-                    PendulumOne: p1m,
-                    PendulumTwo: p2m
-                };
-                values.bobPosition = {
-                    PendulumOne: [x1, y1],
-                    PendulumTwo: [x2, y2]
-                };
-                values.velocity = {
-                    PendulumOne: p1v,
-                    PendulumTwo: p2v
-                };
-                values.acceleration = {
-                    PendulumOne: p1a,
-                    PendulumTwo: p2a
-                };
-                console.table(values);
-                console.log("Gravity: " + G);
-                console.log("Damping: " + D);
-            }
-
-            function run() {
-                // Calculate changing accelerations (d^2y/dx^2 of theta)
-                // Foromulae from https://www.myphysicslab.com/pendulum/double-pendulum-en.html
-                const p1num1 = -G * ((2 * p1m) + p2m) * Math.sin(p1theta);
-                const p1num2 = -p2m * G * Math.sin(p1theta - (2 * p2theta));
-                const p1num3 = -2 * Math.sin(p1theta - p2theta) * p2m;
-                const p1num4 = (p2v * p2v * p2r) + (p1v * p1v * p1r * Math.cos(p1theta - p2theta));
-                const p1den = p1r * ((2 * p1m) + p2m - (p2m * Math.cos((2 * p1theta) - (2 * p2theta))));
-                p1a = (p1num1 + p1num2 + (p1num3 * p1num4)) / p1den;
-
-                const p2num1 = 2 * Math.sin(p1theta - p2theta);
-                const p2num2 = p1v * p1v * p1r * (p1m + p2m);
-                const p2num3 = G * (p1m + p2m) * Math.cos(p1theta);
-                const p2num4 = p2v * p2v * p2r * p2m * Math.cos(p1theta - p2theta);
-                const p2den = p1r * ((2 * p1m) + p2m - (p2m * Math.cos((2 * p1theta) - (2 * p2theta))));
-                p2a = (p2num1 * (p2num2 + p2num3 + p2num4)) / p2den;
-
-                // Update velocities from acceleration
-                p1v += p1a;
-                p2v += p2a;
-
-                // Damp velocities
-                p1v = p1v * D;
-                p2v = p2v * D;
-
-                // Update positions from velocities
-                p1theta += p1v;
-                p2theta += p2v;
-
-                // Push x2, y2 onto trace
-                trace.push({
-                    x: x2,
-                    y: y2
-                });
-
-                // Render
-                draw();
-            }
-
-            function draw() {
-                // Update labels
-                valuegravity.innerHTML = slidergravity.value + "g";
-                valuedamping.innerHTML = "x" + sliderdamping.value;
-                valueangleone.innerHTML = Math.round(sliderangleone.value * 100) / 100 + "rad";
-                valueangletwo.innerHTML = Math.round(sliderangletwo.value * 100) / 100 + "rad";
-                valuelengthone.innerHTML = sliderlengthone.value + "m"
-                valuelengthtwo.innerHTML = sliderlengthtwo.value + "m"
-                valuemassone.innerHTML = slidermassone.value + "kg";
-                valuemasstwo.innerHTML = slidermasstwo.value + "kg";
-
-                // Set up canvas transform
-                ctx.setTransform(1, 0, 0, 1, 0, 0); // Initialise transform
-                ctx.clearRect(0, 0, canv.width, canv.height);
-                ctx.fillStyle = "#071e3d";
-                ctx.fillRect(0, 0, canv.width, canv.height); // Clear canvas
-                ctx.translate(canv.width / 2, canv.height / 2); // Move to start pos
-                ctx.rotate(Math.PI / 2); // Rotate so 0 is vertically down
-
-                // Calculate bob positions
-                x1 = p1r * Math.cos(p1theta);
-                y1 = p1r * Math.sin(p1theta);
-
-                x2 = x1 + (p2r * Math.cos(p2theta));
-                y2 = y1 + (p2r * Math.sin(p2theta));
-
-
-                // Draw trace
-                ctx.beginPath();
-                ctx.lineWidth = 2;
-                for (let i = 0; i < trace.length - 1; i++) {
-                    ctx.moveTo(trace[i].x, trace[i].y);
-                    ctx.lineTo(trace[i + 1].x, trace[i + 1].y);
-                }
-                ctx.strokeStyle = tracegradient;
-                ctx.stroke();
-
-                // Draw line 1
-                ctx.beginPath();
-                ctx.moveTo(ox, oy);
-                ctx.lineTo(x1, y1);
-                ctx.strokeStyle = "#21e6c1";
-                ctx.lineWidth = 4;
-                ctx.stroke();
-
-                // Draw line 2
-                ctx.beginPath();
-                ctx.moveTo(x1, y1);
-                ctx.lineTo(x2, y2);
-                ctx.strokeStyle = "#21e6c1";
-                ctx.lineWidth = 4;
-                ctx.stroke();
-
-                // Draw bob 1
-                ctx.beginPath();
-                ctx.arc(x1, y1, p1m, 0, 2 * Math.PI);
-                ctx.fillStyle = "#278ea5";
-                ctx.fill();
-
-                // Draw bob 2
-                ctx.beginPath();
-                ctx.arc(x2, y2, p2m, 0, 2 * Math.PI);
-                ctx.fillStyle = "278ea";
-                ctx.fill();
-            }
-
-
-            //setup canvasses - PROGRAM ENTRY POINT HERE
-            var canv = document.getElementById("myCanvas");
-            var ctx = canv.getContext("2d");
-
-            // Set up and handle slider event listeners
-            var slidergravity = document.getElementById("slidergravity");
-            var valuegravity = document.getElementById("valuegravity");
-            slidergravity.oninput = function() {
-                G = parseFloat(slidergravity.value);
-                draw();
-            }
-
-            var sliderdamping = document.getElementById("sliderdamping");
-            var valuedamping = document.getElementById("valuedamping");
-            sliderdamping.oninput = function() {
-                D = parseFloat(sliderdamping.value);
-                draw();
-            }
-
-            var sliderangleone = document.getElementById("sliderangleone");
-            var valueangleone = document.getElementById("valueangleone");
-            sliderangleone.oninput = function() {
-                p1theta = parseFloat(sliderangleone.value);
-                draw();
-            }
-
-            var sliderangletwo = document.getElementById("sliderangletwo");
-            var valueangletwo = document.getElementById("valueangletwo");
-            sliderangletwo.oninput = function() {
-                p2theta = parseFloat(sliderangletwo.value);
-                draw();
-            }
-
-            var sliderlengthone = document.getElementById("sliderlengthone");
-            var valuelengthone = document.getElementById("valuelengthone");
-            sliderlengthone.oninput = function() {
-                p1r = parseFloat(sliderlengthone.value);
-                draw();
-            }
-
-            var sliderlengthtwo = document.getElementById("sliderlengthtwo");
-            var valuelengthtwo = document.getElementById("valuelengthtwo");
-            sliderlengthtwo.oninput = function() {
-                p2r = parseFloat(sliderlengthtwo.value);
-                draw();
-            }
-
-            var slidermassone = document.getElementById("slidermassone");
-            var valuemassone = document.getElementById("valuemassone");
-            slidermassone.oninput = function() {
-                p1m = parseFloat(slidermassone.value);
-                draw();
-            }
-
-            var slidermasstwo = document.getElementById("slidermasstwo");
-            var valuemasstwo = document.getElementById("valuemasstwo");
-            slidermasstwo.oninput = function() {
-                p2m = parseFloat(slidermasstwo.value);
-                draw();
-            }
-
-            // Initialise variables
-            var trace = [];
-            var G = 1;
-            var D = 1;
-            const ox = 0;
-            const oy = 0;
-
-            var x1; // Bob posn
-            var y1; // Bob posn
-            var p1r = 240; // Pendulus length
-            var p1m = 17; // Bob mass
-            var p1theta = -Math.PI / 2; // Angle from vertically down
-            var p1v = 0; // Angular velocity
-            var p1a = 0; // Angular accn
-
-            var x2;
-            var y2;
-            var p2r = 240;
-            var p2m = 10;
-            var p2theta = -Math.PI / 4;
-            var p2v = 0;
-            var p2a = 0;
-
-            var tracegradient = ctx.createLinearGradient(0, 0, canv.width, 0);
-            tracegradient.addColorStop("0", "#feff89");
-            tracegradient.addColorStop("0.33", "#ff9f68");
-            tracegradient.addColorStop("0.66", "#f85959");
-            tracegradient.addColorStop("1", "#7c203a");
-
-            // Perform initial render
-            slidergravity.value = G;
-            sliderdamping.value = D;
-            sliderangleone.value = (p1theta % Math.PI);
-            sliderangletwo.value = (p2theta % Math.PI);
-            sliderlengthone.value = p1r;
-            sliderlengthtwo.value = p2r;
-            slidermassone.value = p1m;
-            slidermasstwo.value = p2m;
-
-            valuegravity.innerHTML = slidergravity.value + "g";
-            valuedamping.innerHTML = "x" + sliderdamping.value;
-            valueangleone.innerHTML = Math.round(sliderangleone.value * 100) / 100 + "rad";
-            valueangletwo.innerHTML = Math.round(sliderangletwo.value * 100) / 100 + "rad";
-            valuelengthone.innerHTML = sliderlengthone.value + "m";
-            valuelengthtwo.innerHTML = sliderlengthtwo.value + "m";
-            valuemassone.innerHTML = slidermassone.value + "kg";
-            valuemasstwo.innerHTML = slidermasstwo.value + "kg";
-
-            draw();
-
-            // TODO:
-            // Fix bug where after some execution, sliders are PI-rad displaced from true position
-
-        </script>
-    </body>
+    </div>
+    <script src="index.js"></script>
+</body>
