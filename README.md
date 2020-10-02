@@ -1,8 +1,18 @@
-# double-pendulum
-Raw HTML, CSS and JS double pendulum system with adjustment sliders.
+# DoublePendulum
+Double pendulum system with adjustment sliders built in raw HTML, CSS and JS 
 
-Tested in Firefox 77.0.1 64 bit
+Tested in:
+ - Firefox 77.0.1 (64-bit)
+ - Chrome 83.0 (64-bit)
 
-## Use
-1. Clone/download
-2. Open index.html in a web browser
+
+## Live Demo
+Check out the live demo at https://samandpel.github.io/double-pendulum/
+
+
+## Usage
+1. Clone or download
+   * `git clone https://github.com/SamAndPel/double-pendulum.git`
+   * `git clone git@github.com:SamAndPel/double-pendulum.git`
+   * Click https://github.com/SamAndPel/double-pendulum/archive/master.zip
+1. Open `index.html` in a web browser
