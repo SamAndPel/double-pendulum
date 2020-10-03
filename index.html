@@ -81,67 +81,27 @@
         </div>
 
         <script>
-
             //setup canvasses - PROGRAM ENTRY POINT HERE
             var canv = document.getElementById("myCanvas");
             var ctx = canv.getContext("2d");
 
-            // Set up and handle slider event listeners
+            // Read sliders into variables for conveniance
             var slidergravity = document.getElementById("slidergravity");
             var valuegravity = document.getElementById("valuegravity");
-            slidergravity.oninput = function() {
-                G = parseFloat(slidergravity.value);
-                draw();
-            }
-
             var sliderdamping = document.getElementById("sliderdamping");
             var valuedamping = document.getElementById("valuedamping");
-            sliderdamping.oninput = function() {
-                D = parseFloat(sliderdamping.value);
-                draw();
-            }
-
             var sliderangleone = document.getElementById("sliderangleone");
             var valueangleone = document.getElementById("valueangleone");
-            sliderangleone.oninput = function() {
-                p1theta = parseFloat(sliderangleone.value);
-                draw();
-            }
-
             var sliderangletwo = document.getElementById("sliderangletwo");
             var valueangletwo = document.getElementById("valueangletwo");
-            sliderangletwo.oninput = function() {
-                p2theta = parseFloat(sliderangletwo.value);
-                draw();
-            }
-
             var sliderlengthone = document.getElementById("sliderlengthone");
             var valuelengthone = document.getElementById("valuelengthone");
-            sliderlengthone.oninput = function() {
-                p1r = parseFloat(sliderlengthone.value);
-                draw();
-            }
-
             var sliderlengthtwo = document.getElementById("sliderlengthtwo");
             var valuelengthtwo = document.getElementById("valuelengthtwo");
-            sliderlengthtwo.oninput = function() {
-                p2r = parseFloat(sliderlengthtwo.value);
-                draw();
-            }
-
             var slidermassone = document.getElementById("slidermassone");
             var valuemassone = document.getElementById("valuemassone");
-            slidermassone.oninput = function() {
-                p1m = parseFloat(slidermassone.value);
-                draw();
-            }
-
             var slidermasstwo = document.getElementById("slidermasstwo");
             var valuemasstwo = document.getElementById("valuemasstwo");
-            slidermasstwo.oninput = function() {
-                p2m = parseFloat(slidermasstwo.value);
-                draw();
-            }
 
             // Initialise variables
             var trace = [];
@@ -166,13 +126,9 @@
             var p2v = 0;
             var p2a = 0;
 
-            var tracegradient = ctx.createLinearGradient(0, 0, canv.width, 0);
-            tracegradient.addColorStop("0", "#feff89");
-            tracegradient.addColorStop("0.33", "#ff9f68");
-            tracegradient.addColorStop("0.66", "#f85959");
-            tracegradient.addColorStop("1", "#7c203a");
+            var traceGradient = buildGradient();
 
-            // Perform initial render
+            // Import variable values from above into displayed sliders
             slidergravity.value = G;
             sliderdamping.value = D;
             sliderangleone.value = (p1theta % Math.PI);
@@ -182,19 +138,7 @@
             slidermassone.value = p1m;
             slidermasstwo.value = p2m;
 
-            valuegravity.innerHTML = slidergravity.value + "g";
-            valuedamping.innerHTML = "x" + sliderdamping.value;
-            valueangleone.innerHTML = Math.round(sliderangleone.value * 100) / 100 + "rad";
-            valueangletwo.innerHTML = Math.round(sliderangletwo.value * 100) / 100 + "rad";
-            valuelengthone.innerHTML = sliderlengthone.value + "m";
-            valuelengthtwo.innerHTML = sliderlengthtwo.value + "m";
-            valuemassone.innerHTML = slidermassone.value + "kg";
-            valuemasstwo.innerHTML = slidermasstwo.value + "kg";
-
+            updateLabels()
             draw();
-
-            // TODO:
-            // Fix bug where after some execution, sliders are PI-rad displaced from true position
-
         </script>
     </body>

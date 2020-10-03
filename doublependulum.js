@@ -108,7 +108,7 @@ function run() {
     draw();
 }
 
-function draw() {
+function updateLabels() {
     // Update labels
     valuegravity.innerHTML = slidergravity.value + "g";
     valuedamping.innerHTML = "x" + sliderdamping.value;
@@ -118,6 +118,10 @@ function draw() {
     valuelengthtwo.innerHTML = sliderlengthtwo.value + "m"
     valuemassone.innerHTML = slidermassone.value + "kg";
     valuemasstwo.innerHTML = slidermasstwo.value + "kg";
+}
+
+function draw() {
+    updateLabels();
 
     // Set up canvas transform
     ctx.setTransform(1, 0, 0, 1, 0, 0); // Initialise transform
@@ -142,7 +146,7 @@ function draw() {
         ctx.moveTo(trace[i].x, trace[i].y);
         ctx.lineTo(trace[i + 1].x, trace[i + 1].y);
     }
-    ctx.strokeStyle = tracegradient;
+    ctx.strokeStyle = traceGradient;
     ctx.stroke();
 
     // Draw line 1
@@ -172,4 +176,13 @@ function draw() {
     ctx.arc(x2, y2, p2m, 0, 2 * Math.PI);
     ctx.fillStyle = "278ea";
     ctx.fill();
+}
+
+function buildGradient() {
+    var gradient = ctx.createLinearGradient(0, 0, canv.width, 0);
+    gradient.addColorStop("0", "#feff89");
+    gradient.addColorStop("0.33", "#ff9f68");
+    gradient.addColorStop("0.66", "#f85959");
+    gradient.addColorStop("1", "#7c203a");
+    return gradient;
 }
