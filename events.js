@@ -1,5 +1,4 @@
 // Event handler code
-
 // Set up and handle slider event listeners
 slidergravity.oninput = function() {
     G = parseFloat(slidergravity.value);
